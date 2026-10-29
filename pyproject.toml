@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retrieval-regression-lab"
+version = "0.1.0"
+description = "Offline evidence-based comparison of lexical retrieval configurations"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = []
+
+[project.scripts]
+rrlab = "rrlab.__main__:main"
+
+[tool.setuptools]
+packages = ["rrlab"]
