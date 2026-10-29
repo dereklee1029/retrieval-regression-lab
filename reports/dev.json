@@ -1,0 +1,1858 @@
+{
+  "schema_version": 1,
+  "implementation_version": "0.1.0",
+  "runtime": {
+    "python": "3.12.14",
+    "implementation": "cpython",
+    "platform": "Windows-10-10.0.19045-SP0"
+  },
+  "dataset_sha256": "e7450b13c9792bdad14edc1e0e509bf1b377e4d1b60ec01c435860a5f5ac1af2",
+  "split": "dev",
+  "k": 3,
+  "runs": {
+    "baseline": {
+      "config": {
+        "method": "tfidf",
+        "size": 48,
+        "overlap": 8
+      },
+      "config_sha256": "3ef59155df499acf9538a6d57c9ea359a90e3e1f8da7f030c6e79d4d413532a7",
+      "chunks": 36,
+      "effective_k_cap": 3,
+      "answerable_count": 16,
+      "unsupported_count": 4,
+      "metrics": {
+        "recall_at_k": 0.875,
+        "mrr_at_k": 0.84375,
+        "unsupported_empty_rate": 0.0
+      },
+      "failures": [
+        "dev-09",
+        "dev-13"
+      ],
+      "unsupported_with_hits": [
+        "dev-17",
+        "dev-18",
+        "dev-19",
+        "dev-20"
+      ],
+      "queries": [
+        {
+          "id": "dev-01",
+          "text": "What should a checkout retry reuse?",
+          "evidence": [
+            {
+              "doc_id": "payment-retries",
+              "quote": "Reuse the same idempotency key for every retry of a checkout"
+            }
+          ],
+          "hits": [
+            {
+              "id": "payment-retries:00000000:00000286",
+              "doc_id": "payment-retries",
+              "start": 0,
+              "end": 286,
+              "text": "Payment gateway retry guide. The fictional Cedar service creates one payment attempt for each checkout operation. Reuse the same idempotency key for every retry of a checkout. Keep the key for 24 hours after the first attempt. A timeout is an unknown outcome, not evidence that a charge",
+              "score": 0.4008917701046855
+            },
+            {
+              "id": "worker-retries:00000519:00000653",
+              "doc_id": "worker-retries",
+              "start": 519,
+              "end": 653,
+              "text": "using its original identifier. Payment gateway retries have a separate policy; these worker limits do not apply to checkout operations",
+              "score": 0.187962469620132
+            },
+            {
+              "id": "worker-retries:00000000:00000318",
+              "doc_id": "worker-retries",
+              "start": 0,
+              "end": 318,
+              "text": "Background worker retry guide. The fictional Fern worker processes thumbnail jobs from a queue. A job has a stable job_id and an attempt counter. Persist the result before acknowledging the queue message. Duplicate deliveries must reuse the recorded result for that job_id. Transient storage errors allow five attempts",
+              "score": 0.1549664548107673
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-02",
+          "text": "How long is a checkout idempotency key retained?",
+          "evidence": [
+            {
+              "doc_id": "payment-retries",
+              "quote": "Keep the key for 24 hours after the first attempt"
+            }
+          ],
+          "hits": [
+            {
+              "id": "payment-retries:00000000:00000286",
+              "doc_id": "payment-retries",
+              "start": 0,
+              "end": 286,
+              "text": "Payment gateway retry guide. The fictional Cedar service creates one payment attempt for each checkout operation. Reuse the same idempotency key for every retry of a checkout. Keep the key for 24 hours after the first attempt. A timeout is an unknown outcome, not evidence that a charge",
+              "score": 0.45628285609354474
+            },
+            {
+              "id": "worker-retries:00000519:00000653",
+              "doc_id": "worker-retries",
+              "start": 519,
+              "end": 653,
+              "text": "using its original identifier. Payment gateway retries have a separate policy; these worker limits do not apply to checkout operations",
+              "score": 0.15894799137451354
+            },
+            {
+              "id": "retrieval-labels:00000541:00000684",
+              "doc_id": "retrieval-labels",
+              "start": 541,
+              "end": 684,
+              "text": "the held-out split. A lexical score is not a probability that a question is answerable. This guide provides conventions, not a public benchmark",
+              "score": 0.15029050876410266
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-03",
+          "text": "What happens to a thumbnail job after its retry budget is exhausted?",
+          "evidence": [
+            {
+              "doc_id": "worker-retries",
+              "quote": "Send exhausted jobs to the dead letter queue"
+            }
+          ],
+          "hits": [
+            {
+              "id": "worker-retries:00000261:00000578",
+              "doc_id": "worker-retries",
+              "start": 261,
+              "end": 578,
+              "text": "that job_id. Transient storage errors allow five attempts with a bounded exponential delay. Send exhausted jobs to the dead letter queue. Permanent image decoding errors go directly to the dead letter queue without retry. Operators can replay a repaired job using its original identifier. Payment gateway retries have",
+              "score": 0.2533223556796198
+            },
+            {
+              "id": "queue-pressure:00000261:00000589",
+              "doc_id": "queue-pressure",
+              "start": 261,
+              "end": 589,
+              "text": "the pause signal. Bound in-flight work to eight jobs per worker process. Acknowledge completed jobs only after durable output is written. Check the worker retry guide before replaying a failed thumbnail job. Backpressure protects downstream capacity; adding more producers during a storage outage increases delay. The thresholds",
+              "score": 0.2228500749089925
+            },
+            {
+              "id": "worker-retries:00000000:00000318",
+              "doc_id": "worker-retries",
+              "start": 0,
+              "end": 318,
+              "text": "Background worker retry guide. The fictional Fern worker processes thumbnail jobs from a queue. A job has a stable job_id and an attempt counter. Persist the result before acknowledging the queue message. Duplicate deliveries must reuse the recorded result for that job_id. Transient storage errors allow five attempts",
+              "score": 0.1503360718542222
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-04",
+          "text": "How should a worker handle a duplicate delivery?",
+          "evidence": [
+            {
+              "doc_id": "worker-retries",
+              "quote": "Duplicate deliveries must reuse the recorded result for that job_id"
+            }
+          ],
+          "hits": [
+            {
+              "id": "worker-retries:00000000:00000318",
+              "doc_id": "worker-retries",
+              "start": 0,
+              "end": 318,
+              "text": "Background worker retry guide. The fictional Fern worker processes thumbnail jobs from a queue. A job has a stable job_id and an attempt counter. Persist the result before acknowledging the queue message. Duplicate deliveries must reuse the recorded result for that job_id. Transient storage errors allow five attempts",
+              "score": 0.3375313209508843
+            },
+            {
+              "id": "queue-pressure:00000261:00000589",
+              "doc_id": "queue-pressure",
+              "start": 261,
+              "end": 589,
+              "text": "the pause signal. Bound in-flight work to eight jobs per worker process. Acknowledge completed jobs only after durable output is written. Check the worker retry guide before replaying a failed thumbnail job. Backpressure protects downstream capacity; adding more producers during a storage outage increases delay. The thresholds",
+              "score": 0.20561113551911472
+            },
+            {
+              "id": "worker-retries:00000519:00000653",
+              "doc_id": "worker-retries",
+              "start": 519,
+              "end": 653,
+              "text": "using its original identifier. Payment gateway retries have a separate policy; these worker limits do not apply to checkout operations",
+              "score": 0.17460496215794452
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-05",
+          "text": "What timeout reserve does the HTTP service keep for serialization?",
+          "evidence": [
+            {
+              "doc_id": "http-deadlines",
+              "quote": "Reserve 100 milliseconds for response serialization"
+            }
+          ],
+          "hits": [
+            {
+              "id": "http-deadlines:00000000:00000341",
+              "doc_id": "http-deadlines",
+              "start": 0,
+              "end": 341,
+              "text": "HTTP request deadline guide. The fictional Juniper API accepts an incoming deadline and propagates the remaining budget to downstream calls. Reserve 100 milliseconds for response serialization. Set each downstream timeout below the remaining request budget. Cancel pending downstream work when the client disconnects. A retry must fit inside",
+              "score": 0.25351115202212704
+            },
+            {
+              "id": "payment-retries:00000000:00000286",
+              "doc_id": "payment-retries",
+              "start": 0,
+              "end": 286,
+              "text": "Payment gateway retry guide. The fictional Cedar service creates one payment attempt for each checkout operation. Reuse the same idempotency key for every retry of a checkout. Keep the key for 24 hours after the first attempt. A timeout is an unknown outcome, not evidence that a charge",
+              "score": 0.2100156240087449
+            },
+            {
+              "id": "database-pool:00000000:00000303",
+              "doc_id": "database-pool",
+              "start": 0,
+              "end": 303,
+              "text": "Database connection pool guide. The fictional Moss service uses a maximum of twelve connections per process. Acquire a connection for no more than 200 milliseconds before failing the request. Return HTTP 503 when pool acquisition times out. A query timeout is separate from waiting for a free connection",
+              "score": 0.16791834853373427
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-06",
+          "text": "What status is returned when database pool acquisition times out?",
+          "evidence": [
+            {
+              "doc_id": "database-pool",
+              "quote": "Return HTTP 503 when pool acquisition times out"
+            }
+          ],
+          "hits": [
+            {
+              "id": "database-pool:00000000:00000303",
+              "doc_id": "database-pool",
+              "start": 0,
+              "end": 303,
+              "text": "Database connection pool guide. The fictional Moss service uses a maximum of twelve connections per process. Acquire a connection for no more than 200 milliseconds before failing the request. Return HTTP 503 when pool acquisition times out. A query timeout is separate from waiting for a free connection",
+              "score": 0.37610132695992504
+            },
+            {
+              "id": "database-pool:00000257:00000580",
+              "doc_id": "database-pool",
+              "start": 257,
+              "end": 580,
+              "text": "is separate from waiting for a free connection. Keep transactions short and release connections in a finally block. Never sleep through retry backoff while holding a database connection. Before increasing the pool size, compare total connections across all processes with the database limit. Connection counts in this guide",
+              "score": 0.14143151600967255
+            },
+            {
+              "id": "retrieval-labels:00000541:00000684",
+              "doc_id": "retrieval-labels",
+              "start": 541,
+              "end": 684,
+              "text": "the held-out split. A lexical score is not a probability that a question is answerable. This guide provides conventions, not a public benchmark",
+              "score": 0.13548228030834422
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-07",
+          "text": "For how long can a catalog entry be served stale during a refresh?",
+          "evidence": [
+            {
+              "doc_id": "cache-freshness",
+              "quote": "During refresh, a stale value may be served for an additional 15 seconds"
+            }
+          ],
+          "hits": [
+            {
+              "id": "cache-freshness:00000000:00000321",
+              "doc_id": "cache-freshness",
+              "start": 0,
+              "end": 321,
+              "text": "Catalog cache freshness guide. The fictional Maple catalog caches public product descriptions. Cache entries expire after 60 seconds. Use a per-key lock to coalesce simultaneous refresh requests. During refresh, a stale value may be served for an additional 15 seconds. Never cache customer authorization decisions in the",
+              "score": 0.45898254079409706
+            },
+            {
+              "id": "cache-freshness:00000261:00000587",
+              "doc_id": "cache-freshness",
+              "start": 261,
+              "end": 587,
+              "text": "seconds. Never cache customer authorization decisions in the catalog cache. An unavailable source does not extend the stale window indefinitely. Evict the affected key after a successful catalog write. Cache hit rate measures reuse, not correctness or freshness. Track stale responses separately from fresh hits. The cache has",
+              "score": 0.20772541100371364
+            },
+            {
+              "id": "queue-pressure:00000534:00000658",
+              "doc_id": "queue-pressure",
+              "start": 534,
+              "end": 658,
+              "text": "during a storage outage increases delay. The thresholds here are invented training values and do not describe a real service",
+              "score": 0.10042545826723859
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-08",
+          "text": "Which error condition triggers a canary rollback?",
+          "evidence": [
+            {
+              "doc_id": "deploy-rollback",
+              "quote": "Roll back if the canary error rate exceeds two percent for three consecutive minutes"
+            }
+          ],
+          "hits": [
+            {
+              "id": "deploy-rollback:00000000:00000295",
+              "doc_id": "deploy-rollback",
+              "start": 0,
+              "end": 295,
+              "text": "Deployment rollback guide. The fictional Willow API deploys in two stages. Route five percent of traffic to the canary for ten minutes. Roll back if the canary error rate exceeds two percent for three consecutive minutes. Compare errors with the stable release during the same window. A rollback",
+              "score": 0.3607551829354723
+            },
+            {
+              "id": "http-deadlines:00000547:00000675",
+              "doc_id": "http-deadlines",
+              "start": 547,
+              "end": 675,
+              "text": "but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 0.15418065413913645
+            },
+            {
+              "id": "deploy-rollback:00000517:00000628",
+              "doc_id": "deploy-rollback",
+              "start": 517,
+              "end": 628,
+              "text": "Do not decide solely from average latency: inspect the tail latency and error counts before promoting a release",
+              "score": 0.12021512922828681
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-09",
+          "text": "How should authorization headers be handled in logs?",
+          "evidence": [
+            {
+              "doc_id": "logging-privacy",
+              "quote": "Redact authorization headers before writing any log record"
+            }
+          ],
+          "hits": [
+            {
+              "id": "http-deadlines:00000547:00000675",
+              "doc_id": "http-deadlines",
+              "start": 547,
+              "end": 675,
+              "text": "but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 0.18606908303882633
+            },
+            {
+              "id": "logging-privacy:00000568:00000673",
+              "doc_id": "logging-privacy",
+              "start": 568,
+              "end": 673,
+              "text": "access tokens in incident notes. Synthetic example logs contain invented identifiers and no customer data",
+              "score": 0.1858333726012636
+            },
+            {
+              "id": "cache-freshness:00000000:00000321",
+              "doc_id": "cache-freshness",
+              "start": 0,
+              "end": 321,
+              "text": "Catalog cache freshness guide. The fictional Maple catalog caches public product descriptions. Cache entries expire after 60 seconds. Use a per-key lock to coalesce simultaneous refresh requests. During refresh, a stale value may be served for an additional 15 seconds. Never cache customer authorization decisions in the",
+              "score": 0.14698138432475913
+            }
+          ],
+          "recall": 0.0,
+          "rr": 0.0,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-10",
+          "text": "How often must the restore be tested?",
+          "evidence": [
+            {
+              "doc_id": "backup-restore",
+              "quote": "Verify a restore into an isolated database once each week"
+            }
+          ],
+          "hits": [
+            {
+              "id": "backup-restore:00000260:00000585",
+              "doc_id": "backup-restore",
+              "start": 260,
+              "end": 585,
+              "text": "prove restorability. Compare row counts and application invariants after restoration. The recovery point target is six hours; the recovery time target is forty minutes. Never restore a training snapshot over the active database. Record both the snapshot identifier and restore duration in the exercise log. This fixture makes",
+              "score": 0.21115253506836756
+            },
+            {
+              "id": "backup-restore:00000000:00000326",
+              "doc_id": "backup-restore",
+              "start": 0,
+              "end": 326,
+              "text": "Backup restore exercise guide. The fictional Alder database creates a snapshot every six hours. Retain snapshots for seven days in the training environment. Verify a restore into an isolated database once each week. A successful snapshot upload alone does not prove restorability. Compare row counts and application invariants",
+              "score": 0.19369417967391597
+            },
+            {
+              "id": "http-deadlines:00000294:00000603",
+              "doc_id": "http-deadlines",
+              "start": 294,
+              "end": 603,
+              "text": "the client disconnects. A retry must fit inside the original deadline, rather than resetting the clock. When the budget expires, return HTTP 504 with a request identifier. The browser timeout is outside this service's control. Log the deadline category but exclude authorization headers. An elapsed time alarm",
+              "score": 0.11872048715155199
+            }
+          ],
+          "recall": 1.0,
+          "rr": 0.5,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-11",
+          "text": "Which queue signal pauses bulk producers?",
+          "evidence": [
+            {
+              "doc_id": "queue-pressure",
+              "quote": "Pause bulk producers when the oldest bulk message exceeds 120 seconds"
+            }
+          ],
+          "hits": [
+            {
+              "id": "queue-pressure:00000000:00000302",
+              "doc_id": "queue-pressure",
+              "start": 0,
+              "end": 302,
+              "text": "Queue pressure guide. The fictional Hazel queue separates interactive work from bulk imports. Pause bulk producers when the oldest bulk message exceeds 120 seconds. Resume producers only after oldest message age falls below 30 seconds. Queue depth alone is not the pause signal. Bound in-flight work to",
+              "score": 0.48951930835062396
+            },
+            {
+              "id": "http-deadlines:00000547:00000675",
+              "doc_id": "http-deadlines",
+              "start": 547,
+              "end": 675,
+              "text": "but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 0.14096738723963015
+            },
+            {
+              "id": "queue-pressure:00000261:00000589",
+              "doc_id": "queue-pressure",
+              "start": 261,
+              "end": 589,
+              "text": "the pause signal. Bound in-flight work to eight jobs per worker process. Acknowledge completed jobs only after durable output is written. Check the worker retry guide before replaying a failed thumbnail job. Backpressure protects downstream capacity; adding more producers during a storage outage increases delay. The thresholds",
+              "score": 0.13100518261388822
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-12",
+          "text": "Which normalization is applied to search tokens?",
+          "evidence": [
+            {
+              "doc_id": "unicode-search",
+              "quote": "Normalize search tokens with NFKC and case folding"
+            }
+          ],
+          "hits": [
+            {
+              "id": "unicode-search:00000000:00000336",
+              "doc_id": "unicode-search",
+              "start": 0,
+              "end": 336,
+              "text": "Search text normalization guide. The fictional Olive index stores original document text and character offsets. Normalize search tokens with NFKC and case folding. Preserve the original text for evidence display. The example café label includes an accented letter; maintenance notes also contain naïve. Word tokenization is not language",
+              "score": 0.2733547335487614
+            },
+            {
+              "id": "http-deadlines:00000547:00000675",
+              "doc_id": "http-deadlines",
+              "start": 547,
+              "end": 675,
+              "text": "but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 0.14568732151820102
+            },
+            {
+              "id": "unicode-search:00000540:00000690",
+              "doc_id": "unicode-search",
+              "start": 540,
+              "end": 690,
+              "text": "make evidence substring matching case insensitive. This distinction lets an evaluator expose boundary and normalization failures rather than hide them",
+              "score": 0.1041834366082602
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-13",
+          "text": "What happens if overlapping chunks contain the same evidence?",
+          "evidence": [
+            {
+              "doc_id": "retrieval-labels",
+              "quote": "Overlapping chunks can cover the same evidence item; count that item once for recall"
+            }
+          ],
+          "hits": [
+            {
+              "id": "retrieval-labels:00000000:00000318",
+              "doc_id": "retrieval-labels",
+              "start": 0,
+              "end": 318,
+              "text": "Retrieval evaluation guide. The fictional Spruce experiment evaluates evidence before generating any answer. Label evidence with a source document identifier and an exact quote. Count a hit only when a retrieved chunk contains the entire quote. Overlapping chunks can cover the same evidence item; count that item once",
+              "score": 0.2982546104492267
+            },
+            {
+              "id": "deploy-rollback:00000000:00000295",
+              "doc_id": "deploy-rollback",
+              "start": 0,
+              "end": 295,
+              "text": "Deployment rollback guide. The fictional Willow API deploys in two stages. Route five percent of traffic to the canary for ten minutes. Roll back if the canary error rate exceeds two percent for three consecutive minutes. Compare errors with the stable release during the same window. A rollback",
+              "score": 0.13969851587319135
+            },
+            {
+              "id": "unicode-search:00000283:00000607",
+              "doc_id": "unicode-search",
+              "start": 283,
+              "end": 607,
+              "text": "also contain naïve. Word tokenization is not language-aware segmentation for Chinese sentences. Do not translate or silently rewrite a labeled evidence quote. A quote must match a unique span of its source document. Case-insensitive token matching does not make evidence substring matching case insensitive. This distinction",
+              "score": 0.10960845523083909
+            }
+          ],
+          "recall": 0.0,
+          "rr": 0.0,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-14",
+          "text": "When does the API return 429 for a tenant?",
+          "evidence": [
+            {
+              "doc_id": "rate-limits",
+              "quote": "Reply HTTP 429 when a tenant has no tokens"
+            }
+          ],
+          "hits": [
+            {
+              "id": "rate-limits:00000000:00000275",
+              "doc_id": "rate-limits",
+              "start": 0,
+              "end": 275,
+              "text": "API rate limit guide. The fictional Ash API limits clients independently by tenant identifier. Use a token bucket with a capacity of twenty requests and a refill of two tokens per second. Reply HTTP 429 when a tenant has no tokens. Include Retry-After with the estimated wait",
+              "score": 0.37331053654830904
+            },
+            {
+              "id": "rate-limits:00000224:00000516",
+              "doc_id": "rate-limits",
+              "start": 224,
+              "end": 516,
+              "text": "tokens. Include Retry-After with the estimated wait until the next token. Health checks use a separate bucket so a noisy tenant cannot suppress monitoring. Retry-After does not override the caller's original request deadline. Do not identify a tenant solely by a shared network address. These",
+              "score": 0.209194708023916
+            },
+            {
+              "id": "database-pool:00000000:00000303",
+              "doc_id": "database-pool",
+              "start": 0,
+              "end": 303,
+              "text": "Database connection pool guide. The fictional Moss service uses a maximum of twelve connections per process. Acquire a connection for no more than 200 milliseconds before failing the request. Return HTTP 503 when pool acquisition times out. A query timeout is separate from waiting for a free connection",
+              "score": 0.18612205817538754
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-15",
+          "text": "Which durable-write rule is shared by thumbnail jobs and queue consumers?",
+          "evidence": [
+            {
+              "doc_id": "worker-retries",
+              "quote": "Persist the result before acknowledging the queue message"
+            },
+            {
+              "doc_id": "queue-pressure",
+              "quote": "Acknowledge completed jobs only after durable output is written"
+            }
+          ],
+          "hits": [
+            {
+              "id": "queue-pressure:00000261:00000589",
+              "doc_id": "queue-pressure",
+              "start": 261,
+              "end": 589,
+              "text": "the pause signal. Bound in-flight work to eight jobs per worker process. Acknowledge completed jobs only after durable output is written. Check the worker retry guide before replaying a failed thumbnail job. Backpressure protects downstream capacity; adding more producers during a storage outage increases delay. The thresholds",
+              "score": 0.2191226257851647
+            },
+            {
+              "id": "worker-retries:00000000:00000318",
+              "doc_id": "worker-retries",
+              "start": 0,
+              "end": 318,
+              "text": "Background worker retry guide. The fictional Fern worker processes thumbnail jobs from a queue. A job has a stable job_id and an attempt counter. Persist the result before acknowledging the queue message. Duplicate deliveries must reuse the recorded result for that job_id. Transient storage errors allow five attempts",
+              "score": 0.18861413685939274
+            },
+            {
+              "id": "rate-limits:00000468:00000617",
+              "doc_id": "rate-limits",
+              "start": 468,
+              "end": 617,
+              "text": "tenant solely by a shared network address. These limits are deliberately small for local exercises and are not a pricing or production traffic policy",
+              "score": 0.14199577726058701
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0,
+            1
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-16",
+          "text": "Can we undo a schema change by switching back to an earlier image?",
+          "evidence": [
+            {
+              "doc_id": "deploy-rollback",
+              "quote": "A rollback restores the previous application image but does not undo database migrations"
+            }
+          ],
+          "hits": [
+            {
+              "id": "deploy-rollback:00000246:00000567",
+              "doc_id": "deploy-rollback",
+              "start": 246,
+              "end": 567,
+              "text": "stable release during the same window. A rollback restores the previous application image but does not undo database migrations. Use expand and contract migrations so old and new application versions can coexist. Record the release identifier with each deployment event. Do not decide solely from average latency: inspect",
+              "score": 0.18903979240838992
+            },
+            {
+              "id": "worker-retries:00000261:00000578",
+              "doc_id": "worker-retries",
+              "start": 261,
+              "end": 578,
+              "text": "that job_id. Transient storage errors allow five attempts with a bounded exponential delay. Send exhausted jobs to the dead letter queue. Permanent image decoding errors go directly to the dead letter queue without retry. Operators can replay a repaired job using its original identifier. Payment gateway retries have",
+              "score": 0.17295375274657654
+            },
+            {
+              "id": "deploy-rollback:00000000:00000295",
+              "doc_id": "deploy-rollback",
+              "start": 0,
+              "end": 295,
+              "text": "Deployment rollback guide. The fictional Willow API deploys in two stages. Route five percent of traffic to the canary for ten minutes. Roll back if the canary error rate exceeds two percent for three consecutive minutes. Compare errors with the stable release during the same window. A rollback",
+              "score": 0.107228052623198
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-17",
+          "text": "Which vendor provides the payment gateway?",
+          "evidence": [],
+          "hits": [
+            {
+              "id": "payment-retries:00000000:00000286",
+              "doc_id": "payment-retries",
+              "start": 0,
+              "end": 286,
+              "text": "Payment gateway retry guide. The fictional Cedar service creates one payment attempt for each checkout operation. Reuse the same idempotency key for every retry of a checkout. Keep the key for 24 hours after the first attempt. A timeout is an unknown outcome, not evidence that a charge",
+              "score": 0.19958802397218467
+            },
+            {
+              "id": "worker-retries:00000519:00000653",
+              "doc_id": "worker-retries",
+              "start": 519,
+              "end": 653,
+              "text": "using its original identifier. Payment gateway retries have a separate policy; these worker limits do not apply to checkout operations",
+              "score": 0.18630377130778852
+            },
+            {
+              "id": "http-deadlines:00000547:00000675",
+              "doc_id": "http-deadlines",
+              "start": 547,
+              "end": 675,
+              "text": "but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 0.1754414283184582
+            }
+          ],
+          "recall": null,
+          "rr": null,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-18",
+          "text": "Where is the database administrator's phone number listed?",
+          "evidence": [],
+          "hits": [
+            {
+              "id": "http-deadlines:00000294:00000603",
+              "doc_id": "http-deadlines",
+              "start": 294,
+              "end": 603,
+              "text": "the client disconnects. A retry must fit inside the original deadline, rather than resetting the clock. When the budget expires, return HTTP 504 with a request identifier. The browser timeout is outside this service's control. Log the deadline category but exclude authorization headers. An elapsed time alarm",
+              "score": 0.222848391765019
+            },
+            {
+              "id": "backup-restore:00000260:00000585",
+              "doc_id": "backup-restore",
+              "start": 260,
+              "end": 585,
+              "text": "prove restorability. Compare row counts and application invariants after restoration. The recovery point target is six hours; the recovery time target is forty minutes. Never restore a training snapshot over the active database. Record both the snapshot identifier and restore duration in the exercise log. This fixture makes",
+              "score": 0.18131379213748977
+            },
+            {
+              "id": "database-pool:00000257:00000580",
+              "doc_id": "database-pool",
+              "start": 257,
+              "end": 580,
+              "text": "is separate from waiting for a free connection. Keep transactions short and release connections in a finally block. Never sleep through retry backoff while holding a database connection. Before increasing the pool size, compare total connections across all processes with the database limit. Connection counts in this guide",
+              "score": 0.1769557642040873
+            }
+          ],
+          "recall": null,
+          "rr": null,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-19",
+          "text": "What is the enterprise price for the Ash API?",
+          "evidence": [],
+          "hits": [
+            {
+              "id": "rate-limits:00000000:00000275",
+              "doc_id": "rate-limits",
+              "start": 0,
+              "end": 275,
+              "text": "API rate limit guide. The fictional Ash API limits clients independently by tenant identifier. Use a token bucket with a capacity of twenty requests and a refill of two tokens per second. Reply HTTP 429 when a tenant has no tokens. Include Retry-After with the estimated wait",
+              "score": 0.28984651875481726
+            },
+            {
+              "id": "deploy-rollback:00000000:00000295",
+              "doc_id": "deploy-rollback",
+              "start": 0,
+              "end": 295,
+              "text": "Deployment rollback guide. The fictional Willow API deploys in two stages. Route five percent of traffic to the canary for ten minutes. Roll back if the canary error rate exceeds two percent for three consecutive minutes. Compare errors with the stable release during the same window. A rollback",
+              "score": 0.198922820439535
+            },
+            {
+              "id": "payment-retries:00000000:00000286",
+              "doc_id": "payment-retries",
+              "start": 0,
+              "end": 286,
+              "text": "Payment gateway retry guide. The fictional Cedar service creates one payment attempt for each checkout operation. Reuse the same idempotency key for every retry of a checkout. Keep the key for 24 hours after the first attempt. A timeout is an unknown outcome, not evidence that a charge",
+              "score": 0.1843538909642807
+            }
+          ],
+          "recall": null,
+          "rr": null,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-20",
+          "text": "Does the restore exercise satisfy ISO certification?",
+          "evidence": [],
+          "hits": [
+            {
+              "id": "backup-restore:00000000:00000326",
+              "doc_id": "backup-restore",
+              "start": 0,
+              "end": 326,
+              "text": "Backup restore exercise guide. The fictional Alder database creates a snapshot every six hours. Retain snapshots for seven days in the training environment. Verify a restore into an isolated database once each week. A successful snapshot upload alone does not prove restorability. Compare row counts and application invariants",
+              "score": 0.3409437853815455
+            },
+            {
+              "id": "backup-restore:00000260:00000585",
+              "doc_id": "backup-restore",
+              "start": 260,
+              "end": 585,
+              "text": "prove restorability. Compare row counts and application invariants after restoration. The recovery point target is six hours; the recovery time target is forty minutes. Never restore a training snapshot over the active database. Record both the snapshot identifier and restore duration in the exercise log. This fixture makes",
+              "score": 0.3005480742178029
+            },
+            {
+              "id": "backup-restore:00000537:00000652",
+              "doc_id": "backup-restore",
+              "start": 537,
+              "end": 652,
+              "text": "duration in the exercise log. This fixture makes no promise about real disaster recovery compliance or availability",
+              "score": 0.1301274755650956
+            }
+          ],
+          "recall": null,
+          "rr": null,
+          "covered_evidence": [],
+          "empty_result": false
+        }
+      ]
+    },
+    "candidate": {
+      "config": {
+        "method": "bm25",
+        "size": 32,
+        "overlap": 8
+      },
+      "config_sha256": "d5782ed885bd17bf27b08c84c20bc5e3ea1d7061ba3a41c5c050ae9704069d3b",
+      "chunks": 48,
+      "effective_k_cap": 3,
+      "answerable_count": 16,
+      "unsupported_count": 4,
+      "metrics": {
+        "recall_at_k": 0.75,
+        "mrr_at_k": 0.6875,
+        "unsupported_empty_rate": 0.0
+      },
+      "failures": [
+        "dev-08",
+        "dev-09",
+        "dev-10",
+        "dev-16"
+      ],
+      "unsupported_with_hits": [
+        "dev-17",
+        "dev-18",
+        "dev-19",
+        "dev-20"
+      ],
+      "queries": [
+        {
+          "id": "dev-01",
+          "text": "What should a checkout retry reuse?",
+          "evidence": [
+            {
+              "doc_id": "payment-retries",
+              "quote": "Reuse the same idempotency key for every retry of a checkout"
+            }
+          ],
+          "hits": [
+            {
+              "id": "payment-retries:00000000:00000195",
+              "doc_id": "payment-retries",
+              "start": 0,
+              "end": 195,
+              "text": "Payment gateway retry guide. The fictional Cedar service creates one payment attempt for each checkout operation. Reuse the same idempotency key for every retry of a checkout. Keep the key for 24",
+              "score": 8.465449254872361
+            },
+            {
+              "id": "worker-retries:00000468:00000653",
+              "doc_id": "worker-retries",
+              "start": 468,
+              "end": 653,
+              "text": "without retry. Operators can replay a repaired job using its original identifier. Payment gateway retries have a separate policy; these worker limits do not apply to checkout operations",
+              "score": 4.782707588813128
+            },
+            {
+              "id": "payment-retries:00000161:00000338",
+              "doc_id": "payment-retries",
+              "start": 161,
+              "end": 338,
+              "text": "of a checkout. Keep the key for 24 hours after the first attempt. A timeout is an unknown outcome, not evidence that a charge failed. Query the payment status before retrying an",
+              "score": 3.175068253552886
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-02",
+          "text": "How long is a checkout idempotency key retained?",
+          "evidence": [
+            {
+              "doc_id": "payment-retries",
+              "quote": "Keep the key for 24 hours after the first attempt"
+            }
+          ],
+          "hits": [
+            {
+              "id": "payment-retries:00000000:00000195",
+              "doc_id": "payment-retries",
+              "start": 0,
+              "end": 195,
+              "text": "Payment gateway retry guide. The fictional Cedar service creates one payment attempt for each checkout operation. Reuse the same idempotency key for every retry of a checkout. Keep the key for 24",
+              "score": 10.368148347328894
+            },
+            {
+              "id": "payment-retries:00000161:00000338",
+              "doc_id": "payment-retries",
+              "start": 161,
+              "end": 338,
+              "text": "of a checkout. Keep the key for 24 hours after the first attempt. A timeout is an unknown outcome, not evidence that a charge failed. Query the payment status before retrying an",
+              "score": 7.038688603889199
+            },
+            {
+              "id": "worker-retries:00000468:00000653",
+              "doc_id": "worker-retries",
+              "start": 468,
+              "end": 653,
+              "text": "without retry. Operators can replay a repaired job using its original identifier. Payment gateway retries have a separate policy; these worker limits do not apply to checkout operations",
+              "score": 3.27027591084783
+            }
+          ],
+          "recall": 1.0,
+          "rr": 0.5,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-03",
+          "text": "What happens to a thumbnail job after its retry budget is exhausted?",
+          "evidence": [
+            {
+              "doc_id": "worker-retries",
+              "quote": "Send exhausted jobs to the dead letter queue"
+            }
+          ],
+          "hits": [
+            {
+              "id": "worker-retries:00000319:00000518",
+              "doc_id": "worker-retries",
+              "start": 319,
+              "end": 518,
+              "text": "with a bounded exponential delay. Send exhausted jobs to the dead letter queue. Permanent image decoding errors go directly to the dead letter queue without retry. Operators can replay a repaired job",
+              "score": 9.850409490546886
+            },
+            {
+              "id": "queue-pressure:00000303:00000533",
+              "doc_id": "queue-pressure",
+              "start": 303,
+              "end": 533,
+              "text": "eight jobs per worker process. Acknowledge completed jobs only after durable output is written. Check the worker retry guide before replaying a failed thumbnail job. Backpressure protects downstream capacity; adding more producers",
+              "score": 9.707248264412822
+            },
+            {
+              "id": "worker-retries:00000468:00000653",
+              "doc_id": "worker-retries",
+              "start": 468,
+              "end": 653,
+              "text": "without retry. Operators can replay a repaired job using its original identifier. Payment gateway retries have a separate policy; these worker limits do not apply to checkout operations",
+              "score": 9.523621497886527
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-04",
+          "text": "How should a worker handle a duplicate delivery?",
+          "evidence": [
+            {
+              "doc_id": "worker-retries",
+              "quote": "Duplicate deliveries must reuse the recorded result for that job_id"
+            }
+          ],
+          "hits": [
+            {
+              "id": "worker-retries:00000000:00000203",
+              "doc_id": "worker-retries",
+              "start": 0,
+              "end": 203,
+              "text": "Background worker retry guide. The fictional Fern worker processes thumbnail jobs from a queue. A job has a stable job_id and an attempt counter. Persist the result before acknowledging the queue message",
+              "score": 3.9502131336986137
+            },
+            {
+              "id": "worker-retries:00000146:00000372",
+              "doc_id": "worker-retries",
+              "start": 146,
+              "end": 372,
+              "text": "Persist the result before acknowledging the queue message. Duplicate deliveries must reuse the recorded result for that job_id. Transient storage errors allow five attempts with a bounded exponential delay. Send exhausted jobs",
+              "score": 3.7741438744786473
+            },
+            {
+              "id": "queue-pressure:00000303:00000533",
+              "doc_id": "queue-pressure",
+              "start": 303,
+              "end": 533,
+              "text": "eight jobs per worker process. Acknowledge completed jobs only after durable output is written. Check the worker retry guide before replaying a failed thumbnail job. Backpressure protects downstream capacity; adding more producers",
+              "score": 3.7159179219938263
+            }
+          ],
+          "recall": 1.0,
+          "rr": 0.5,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-05",
+          "text": "What timeout reserve does the HTTP service keep for serialization?",
+          "evidence": [
+            {
+              "doc_id": "http-deadlines",
+              "quote": "Reserve 100 milliseconds for response serialization"
+            }
+          ],
+          "hits": [
+            {
+              "id": "http-deadlines:00000000:00000231",
+              "doc_id": "http-deadlines",
+              "start": 0,
+              "end": 231,
+              "text": "HTTP request deadline guide. The fictional Juniper API accepts an incoming deadline and propagates the remaining budget to downstream calls. Reserve 100 milliseconds for response serialization. Set each downstream timeout below the",
+              "score": 11.538603499186339
+            },
+            {
+              "id": "database-pool:00000151:00000357",
+              "doc_id": "database-pool",
+              "start": 151,
+              "end": 357,
+              "text": "milliseconds before failing the request. Return HTTP 503 when pool acquisition times out. A query timeout is separate from waiting for a free connection. Keep transactions short and release connections in a",
+              "score": 6.949494558943304
+            },
+            {
+              "id": "http-deadlines:00000342:00000546",
+              "doc_id": "http-deadlines",
+              "start": 342,
+              "end": 546,
+              "text": "the original deadline, rather than resetting the clock. When the budget expires, return HTTP 504 with a request identifier. The browser timeout is outside this service's control. Log the deadline category",
+              "score": 6.187943349521161
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-06",
+          "text": "What status is returned when database pool acquisition times out?",
+          "evidence": [
+            {
+              "doc_id": "database-pool",
+              "quote": "Return HTTP 503 when pool acquisition times out"
+            }
+          ],
+          "hits": [
+            {
+              "id": "database-pool:00000151:00000357",
+              "doc_id": "database-pool",
+              "start": 151,
+              "end": 357,
+              "text": "milliseconds before failing the request. Return HTTP 503 when pool acquisition times out. A query timeout is separate from waiting for a free connection. Keep transactions short and release connections in a",
+              "score": 14.78511447007594
+            },
+            {
+              "id": "payment-retries:00000287:00000481",
+              "doc_id": "payment-retries",
+              "start": 287,
+              "end": 481,
+              "text": "failed. Query the payment status before retrying an ambiguous timeout. Retry only HTTP 429 and HTTP 503 responses, at most three times. Apply exponential backoff with full jitter. Do not retry a",
+              "score": 5.853241623903323
+            },
+            {
+              "id": "retrieval-labels:00000479:00000684",
+              "doc_id": "retrieval-labels",
+              "start": 479,
+              "end": 684,
+              "text": "Select configurations on the development split before running the held-out split. A lexical score is not a probability that a question is answerable. This guide provides conventions, not a public benchmark",
+              "score": 4.770356006367537
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-07",
+          "text": "For how long can a catalog entry be served stale during a refresh?",
+          "evidence": [
+            {
+              "doc_id": "cache-freshness",
+              "quote": "During refresh, a stale value may be served for an additional 15 seconds"
+            }
+          ],
+          "hits": [
+            {
+              "id": "cache-freshness:00000156:00000374",
+              "doc_id": "cache-freshness",
+              "start": 156,
+              "end": 374,
+              "text": "coalesce simultaneous refresh requests. During refresh, a stale value may be served for an additional 15 seconds. Never cache customer authorization decisions in the catalog cache. An unavailable source does not extend",
+              "score": 19.3474934521265
+            },
+            {
+              "id": "cache-freshness:00000000:00000219",
+              "doc_id": "cache-freshness",
+              "start": 0,
+              "end": 219,
+              "text": "Catalog cache freshness guide. The fictional Maple catalog caches public product descriptions. Cache entries expire after 60 seconds. Use a per-key lock to coalesce simultaneous refresh requests. During refresh, a stale",
+              "score": 12.756851854733572
+            },
+            {
+              "id": "cache-freshness:00000322:00000535",
+              "doc_id": "cache-freshness",
+              "start": 322,
+              "end": 535,
+              "text": "catalog cache. An unavailable source does not extend the stale window indefinitely. Evict the affected key after a successful catalog write. Cache hit rate measures reuse, not correctness or freshness. Track stale",
+              "score": 7.441527535377233
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-08",
+          "text": "Which error condition triggers a canary rollback?",
+          "evidence": [
+            {
+              "doc_id": "deploy-rollback",
+              "quote": "Roll back if the canary error rate exceeds two percent for three consecutive minutes"
+            }
+          ],
+          "hits": [
+            {
+              "id": "deploy-rollback:00000000:00000190",
+              "doc_id": "deploy-rollback",
+              "start": 0,
+              "end": 190,
+              "text": "Deployment rollback guide. The fictional Willow API deploys in two stages. Route five percent of traffic to the canary for ten minutes. Roll back if the canary error rate exceeds two percent",
+              "score": 9.278358278764937
+            },
+            {
+              "id": "deploy-rollback:00000146:00000348",
+              "doc_id": "deploy-rollback",
+              "start": 146,
+              "end": 348,
+              "text": "if the canary error rate exceeds two percent for three consecutive minutes. Compare errors with the stable release during the same window. A rollback restores the previous application image but does not",
+              "score": 8.349458817660127
+            },
+            {
+              "id": "http-deadlines:00000497:00000675",
+              "doc_id": "http-deadlines",
+              "start": 497,
+              "end": 675,
+              "text": "this service's control. Log the deadline category but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 3.751983458484647
+            }
+          ],
+          "recall": 0.0,
+          "rr": 0.0,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-09",
+          "text": "How should authorization headers be handled in logs?",
+          "evidence": [
+            {
+              "doc_id": "logging-privacy",
+              "quote": "Redact authorization headers before writing any log record"
+            }
+          ],
+          "hits": [
+            {
+              "id": "cache-freshness:00000156:00000374",
+              "doc_id": "cache-freshness",
+              "start": 156,
+              "end": 374,
+              "text": "coalesce simultaneous refresh requests. During refresh, a stale value may be served for an additional 15 seconds. Never cache customer authorization decisions in the catalog cache. An unavailable source does not extend",
+              "score": 7.292670349601561
+            },
+            {
+              "id": "http-deadlines:00000497:00000675",
+              "doc_id": "http-deadlines",
+              "start": 497,
+              "end": 675,
+              "text": "this service's control. Log the deadline category but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 5.771904606672522
+            },
+            {
+              "id": "logging-privacy:00000505:00000673",
+              "doc_id": "logging-privacy",
+              "start": 505,
+              "end": 673,
+              "text": "automatically after thirty minutes. Operators must not include access tokens in incident notes. Synthetic example logs contain invented identifiers and no customer data",
+              "score": 5.677119870390342
+            }
+          ],
+          "recall": 0.0,
+          "rr": 0.0,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-10",
+          "text": "How often must the restore be tested?",
+          "evidence": [
+            {
+              "doc_id": "backup-restore",
+              "quote": "Verify a restore into an isolated database once each week"
+            }
+          ],
+          "hits": [
+            {
+              "id": "backup-restore:00000327:00000536",
+              "doc_id": "backup-restore",
+              "start": 327,
+              "end": 536,
+              "text": "after restoration. The recovery point target is six hours; the recovery time target is forty minutes. Never restore a training snapshot over the active database. Record both the snapshot identifier and restore",
+              "score": 3.585663641880783
+            },
+            {
+              "id": "cache-freshness:00000156:00000374",
+              "doc_id": "cache-freshness",
+              "start": 156,
+              "end": 374,
+              "text": "coalesce simultaneous refresh requests. During refresh, a stale value may be served for an additional 15 seconds. Never cache customer authorization decisions in the catalog cache. An unavailable source does not extend",
+              "score": 3.546152381588793
+            },
+            {
+              "id": "backup-restore:00000000:00000209",
+              "doc_id": "backup-restore",
+              "start": 0,
+              "end": 209,
+              "text": "Backup restore exercise guide. The fictional Alder database creates a snapshot every six hours. Retain snapshots for seven days in the training environment. Verify a restore into an isolated database once each",
+              "score": 3.538902508457312
+            }
+          ],
+          "recall": 0.0,
+          "rr": 0.0,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-11",
+          "text": "Which queue signal pauses bulk producers?",
+          "evidence": [
+            {
+              "doc_id": "queue-pressure",
+              "quote": "Pause bulk producers when the oldest bulk message exceeds 120 seconds"
+            }
+          ],
+          "hits": [
+            {
+              "id": "queue-pressure:00000000:00000217",
+              "doc_id": "queue-pressure",
+              "start": 0,
+              "end": 217,
+              "text": "Queue pressure guide. The fictional Hazel queue separates interactive work from bulk imports. Pause bulk producers when the oldest bulk message exceeds 120 seconds. Resume producers only after oldest message age falls",
+              "score": 12.215498435335045
+            },
+            {
+              "id": "queue-pressure:00000165:00000360",
+              "doc_id": "queue-pressure",
+              "start": 165,
+              "end": 360,
+              "text": "Resume producers only after oldest message age falls below 30 seconds. Queue depth alone is not the pause signal. Bound in-flight work to eight jobs per worker process. Acknowledge completed jobs",
+              "score": 7.9286689092920835
+            },
+            {
+              "id": "http-deadlines:00000497:00000675",
+              "doc_id": "http-deadlines",
+              "start": 497,
+              "end": 675,
+              "text": "this service's control. Log the deadline category but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 3.751983458484647
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-12",
+          "text": "Which normalization is applied to search tokens?",
+          "evidence": [
+            {
+              "doc_id": "unicode-search",
+              "quote": "Normalize search tokens with NFKC and case folding"
+            }
+          ],
+          "hits": [
+            {
+              "id": "unicode-search:00000000:00000224",
+              "doc_id": "unicode-search",
+              "start": 0,
+              "end": 224,
+              "text": "Search text normalization guide. The fictional Olive index stores original document text and character offsets. Normalize search tokens with NFKC and case folding. Preserve the original text for evidence display. The example",
+              "score": 10.196873223866088
+            },
+            {
+              "id": "http-deadlines:00000497:00000675",
+              "doc_id": "http-deadlines",
+              "start": 497,
+              "end": 675,
+              "text": "this service's control. Log the deadline category but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 3.751983458484647
+            },
+            {
+              "id": "queue-pressure:00000165:00000360",
+              "doc_id": "queue-pressure",
+              "start": 165,
+              "end": 360,
+              "text": "Resume producers only after oldest message age falls below 30 seconds. Queue depth alone is not the pause signal. Bound in-flight work to eight jobs per worker process. Acknowledge completed jobs",
+              "score": 3.501939859308191
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-13",
+          "text": "What happens if overlapping chunks contain the same evidence?",
+          "evidence": [
+            {
+              "doc_id": "retrieval-labels",
+              "quote": "Overlapping chunks can cover the same evidence item; count that item once for recall"
+            }
+          ],
+          "hits": [
+            {
+              "id": "retrieval-labels:00000178:00000370",
+              "doc_id": "retrieval-labels",
+              "start": 178,
+              "end": 370,
+              "text": "Count a hit only when a retrieved chunk contains the entire quote. Overlapping chunks can cover the same evidence item; count that item once for recall. Reciprocal rank uses the first relevant",
+              "score": 11.496452484854556
+            },
+            {
+              "id": "deploy-rollback:00000146:00000348",
+              "doc_id": "deploy-rollback",
+              "start": 146,
+              "end": 348,
+              "text": "if the canary error rate exceeds two percent for three consecutive minutes. Compare errors with the stable release during the same window. A rollback restores the previous application image but does not",
+              "score": 5.737139573686717
+            },
+            {
+              "id": "unicode-search:00000173:00000395",
+              "doc_id": "unicode-search",
+              "start": 173,
+              "end": 395,
+              "text": "the original text for evidence display. The example café label includes an accented letter; maintenance notes also contain naïve. Word tokenization is not language-aware segmentation for Chinese sentences. Do not translate",
+              "score": 4.9407656777983915
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-14",
+          "text": "When does the API return 429 for a tenant?",
+          "evidence": [
+            {
+              "doc_id": "rate-limits",
+              "quote": "Reply HTTP 429 when a tenant has no tokens"
+            }
+          ],
+          "hits": [
+            {
+              "id": "rate-limits:00000149:00000317",
+              "doc_id": "rate-limits",
+              "start": 149,
+              "end": 317,
+              "text": "and a refill of two tokens per second. Reply HTTP 429 when a tenant has no tokens. Include Retry-After with the estimated wait until the next token. Health checks use a",
+              "score": 7.7455445187669145
+            },
+            {
+              "id": "rate-limits:00000000:00000186",
+              "doc_id": "rate-limits",
+              "start": 0,
+              "end": 186,
+              "text": "API rate limit guide. The fictional Ash API limits clients independently by tenant identifier. Use a token bucket with a capacity of twenty requests and a refill of two tokens per second",
+              "score": 6.77059667410857
+            },
+            {
+              "id": "database-pool:00000151:00000357",
+              "doc_id": "database-pool",
+              "start": 151,
+              "end": 357,
+              "text": "milliseconds before failing the request. Return HTTP 503 when pool acquisition times out. A query timeout is separate from waiting for a free connection. Keep transactions short and release connections in a",
+              "score": 6.027826774152477
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-15",
+          "text": "Which durable-write rule is shared by thumbnail jobs and queue consumers?",
+          "evidence": [
+            {
+              "doc_id": "worker-retries",
+              "quote": "Persist the result before acknowledging the queue message"
+            },
+            {
+              "doc_id": "queue-pressure",
+              "quote": "Acknowledge completed jobs only after durable output is written"
+            }
+          ],
+          "hits": [
+            {
+              "id": "queue-pressure:00000303:00000533",
+              "doc_id": "queue-pressure",
+              "start": 303,
+              "end": 533,
+              "text": "eight jobs per worker process. Acknowledge completed jobs only after durable output is written. Check the worker retry guide before replaying a failed thumbnail job. Backpressure protects downstream capacity; adding more producers",
+              "score": 10.95832881306646
+            },
+            {
+              "id": "worker-retries:00000000:00000203",
+              "doc_id": "worker-retries",
+              "start": 0,
+              "end": 203,
+              "text": "Background worker retry guide. The fictional Fern worker processes thumbnail jobs from a queue. A job has a stable job_id and an attempt counter. Persist the result before acknowledging the queue message",
+              "score": 9.022349666450086
+            },
+            {
+              "id": "queue-pressure:00000165:00000360",
+              "doc_id": "queue-pressure",
+              "start": 165,
+              "end": 360,
+              "text": "Resume producers only after oldest message age falls below 30 seconds. Queue depth alone is not the pause signal. Bound in-flight work to eight jobs per worker process. Acknowledge completed jobs",
+              "score": 6.753781320392956
+            }
+          ],
+          "recall": 1.0,
+          "rr": 1.0,
+          "covered_evidence": [
+            0,
+            1
+          ],
+          "empty_result": false
+        },
+        {
+          "id": "dev-16",
+          "text": "Can we undo a schema change by switching back to an earlier image?",
+          "evidence": [
+            {
+              "doc_id": "deploy-rollback",
+              "quote": "A rollback restores the previous application image but does not undo database migrations"
+            }
+          ],
+          "hits": [
+            {
+              "id": "deploy-rollback:00000296:00000515",
+              "doc_id": "deploy-rollback",
+              "start": 296,
+              "end": 515,
+              "text": "restores the previous application image but does not undo database migrations. Use expand and contract migrations so old and new application versions can coexist. Record the release identifier with each deployment event",
+              "score": 8.17585248444335
+            },
+            {
+              "id": "worker-retries:00000319:00000518",
+              "doc_id": "worker-retries",
+              "start": 319,
+              "end": 518,
+              "text": "with a bounded exponential delay. Send exhausted jobs to the dead letter queue. Permanent image decoding errors go directly to the dead letter queue without retry. Operators can replay a repaired job",
+              "score": 8.093819562234707
+            },
+            {
+              "id": "deploy-rollback:00000000:00000190",
+              "doc_id": "deploy-rollback",
+              "start": 0,
+              "end": 190,
+              "text": "Deployment rollback guide. The fictional Willow API deploys in two stages. Route five percent of traffic to the canary for ten minutes. Roll back if the canary error rate exceeds two percent",
+              "score": 5.415865099720556
+            }
+          ],
+          "recall": 0.0,
+          "rr": 0.0,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-17",
+          "text": "Which vendor provides the payment gateway?",
+          "evidence": [],
+          "hits": [
+            {
+              "id": "payment-retries:00000000:00000195",
+              "doc_id": "payment-retries",
+              "start": 0,
+              "end": 195,
+              "text": "Payment gateway retry guide. The fictional Cedar service creates one payment attempt for each checkout operation. Reuse the same idempotency key for every retry of a checkout. Keep the key for 24",
+              "score": 6.163110128934642
+            },
+            {
+              "id": "worker-retries:00000468:00000653",
+              "doc_id": "worker-retries",
+              "start": 468,
+              "end": 653,
+              "text": "without retry. Operators can replay a repaired job using its original identifier. Payment gateway retries have a separate policy; these worker limits do not apply to checkout operations",
+              "score": 5.24514118577967
+            },
+            {
+              "id": "http-deadlines:00000497:00000675",
+              "doc_id": "http-deadlines",
+              "start": 497,
+              "end": 675,
+              "text": "this service's control. Log the deadline category but exclude authorization headers. An elapsed time alarm alone does not identify which downstream dependency consumed the budget",
+              "score": 3.9311274092948154
+            }
+          ],
+          "recall": null,
+          "rr": null,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-18",
+          "text": "Where is the database administrator's phone number listed?",
+          "evidence": [],
+          "hits": [
+            {
+              "id": "backup-restore:00000327:00000536",
+              "doc_id": "backup-restore",
+              "start": 327,
+              "end": 536,
+              "text": "after restoration. The recovery point target is six hours; the recovery time target is forty minutes. Never restore a training snapshot over the active database. Record both the snapshot identifier and restore",
+              "score": 4.112477001569944
+            },
+            {
+              "id": "http-deadlines:00000342:00000546",
+              "doc_id": "http-deadlines",
+              "start": 342,
+              "end": 546,
+              "text": "the original deadline, rather than resetting the clock. When the budget expires, return HTTP 504 with a request identifier. The browser timeout is outside this service's control. Log the deadline category",
+              "score": 4.091118398491549
+            },
+            {
+              "id": "backup-restore:00000164:00000378",
+              "doc_id": "backup-restore",
+              "start": 164,
+              "end": 378,
+              "text": "a restore into an isolated database once each week. A successful snapshot upload alone does not prove restorability. Compare row counts and application invariants after restoration. The recovery point target is six",
+              "score": 3.3551877079131778
+            }
+          ],
+          "recall": null,
+          "rr": null,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-19",
+          "text": "What is the enterprise price for the Ash API?",
+          "evidence": [],
+          "hits": [
+            {
+              "id": "rate-limits:00000000:00000186",
+              "doc_id": "rate-limits",
+              "start": 0,
+              "end": 186,
+              "text": "API rate limit guide. The fictional Ash API limits clients independently by tenant identifier. Use a token bucket with a capacity of twenty requests and a refill of two tokens per second",
+              "score": 7.2717619949722
+            },
+            {
+              "id": "deploy-rollback:00000000:00000190",
+              "doc_id": "deploy-rollback",
+              "start": 0,
+              "end": 190,
+              "text": "Deployment rollback guide. The fictional Willow API deploys in two stages. Route five percent of traffic to the canary for ten minutes. Roll back if the canary error rate exceeds two percent",
+              "score": 3.804981653693512
+            },
+            {
+              "id": "http-deadlines:00000000:00000231",
+              "doc_id": "http-deadlines",
+              "start": 0,
+              "end": 231,
+              "text": "HTTP request deadline guide. The fictional Juniper API accepts an incoming deadline and propagates the remaining budget to downstream calls. Reserve 100 milliseconds for response serialization. Set each downstream timeout below the",
+              "score": 3.804981653693512
+            }
+          ],
+          "recall": null,
+          "rr": null,
+          "covered_evidence": [],
+          "empty_result": false
+        },
+        {
+          "id": "dev-20",
+          "text": "Does the restore exercise satisfy ISO certification?",
+          "evidence": [],
+          "hits": [
+            {
+              "id": "backup-restore:00000000:00000209",
+              "doc_id": "backup-restore",
+              "start": 0,
+              "end": 209,
+              "text": "Backup restore exercise guide. The fictional Alder database creates a snapshot every six hours. Retain snapshots for seven days in the training environment. Verify a restore into an isolated database once each",
+              "score": 5.690025827000716
+            },
+            {
+              "id": "backup-restore:00000479:00000652",
+              "doc_id": "backup-restore",
+              "start": 479,
+              "end": 652,
+              "text": "database. Record both the snapshot identifier and restore duration in the exercise log. This fixture makes no promise about real disaster recovery compliance or availability",
+              "score": 5.1830148337427815
+            },
+            {
+              "id": "backup-restore:00000164:00000378",
+              "doc_id": "backup-restore",
+              "start": 164,
+              "end": 378,
+              "text": "a restore into an isolated database once each week. A successful snapshot upload alone does not prove restorability. Compare row counts and application invariants after restoration. The recovery point target is six",
+              "score": 4.079161120256001
+            }
+          ],
+          "recall": null,
+          "rr": null,
+          "covered_evidence": [],
+          "empty_result": false
+        }
+      ]
+    }
+  },
+  "comparison": [
+    {
+      "id": "dev-01",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-02",
+      "recall_delta": 0.0,
+      "rr_delta": -0.5,
+      "classification": "regression",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-03",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-04",
+      "recall_delta": 0.0,
+      "rr_delta": -0.5,
+      "classification": "regression",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-05",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-06",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-07",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-08",
+      "recall_delta": -1.0,
+      "rr_delta": -1.0,
+      "classification": "regression",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-09",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-10",
+      "recall_delta": -1.0,
+      "rr_delta": -0.5,
+      "classification": "regression",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-11",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-12",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-13",
+      "recall_delta": 1.0,
+      "rr_delta": 1.0,
+      "classification": "improvement",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-14",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-15",
+      "recall_delta": 0.0,
+      "rr_delta": 0.0,
+      "classification": "unchanged",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-16",
+      "recall_delta": -1.0,
+      "rr_delta": -1.0,
+      "classification": "regression",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-17",
+      "recall_delta": null,
+      "rr_delta": null,
+      "classification": "unsupported",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-18",
+      "recall_delta": null,
+      "rr_delta": null,
+      "classification": "unsupported",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-19",
+      "recall_delta": null,
+      "rr_delta": null,
+      "classification": "unsupported",
+      "baseline_empty": false,
+      "candidate_empty": false
+    },
+    {
+      "id": "dev-20",
+      "recall_delta": null,
+      "rr_delta": null,
+      "classification": "unsupported",
+      "baseline_empty": false,
+      "candidate_empty": false
+    }
+  ]
+}
