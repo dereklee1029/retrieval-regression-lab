@@ -118,6 +118,10 @@ missing references and non-unique/missing quotes are rejected. New fixture
 versions change the canonical dataset hash. Inspect every unsupported label
 manually; empty evidence is an author assertion, not an automated discovery.
 
+
+For rejected labels, see the [evidence-label troubleshooting guide](docs/EVIDENCE_LABELS.md)
+for exact-text, repeated-quote, and split-validation examples.
+
 ## Try a small corpus of your own
 
 1. Choose a small set of documents you are permitted to use. Start with public
